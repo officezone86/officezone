@@ -1,0 +1,36 @@
+OFFICEZONE FINAL PACKAGE — GitHub/Netlify + Supabase
+
+FILES
+- index.html (website root)
+- supabase/schema.sql (database setup)
+- supabase/functions/admin-chat-reply/index.ts (server function)
+
+IMPORTANT: I cannot sign into your GitHub, Supabase or Netlify accounts or publish changes on your behalf. This package is not a claim that the live site has passed testing.
+
+A) GITHUB / NETLIFY
+1. Extract this ZIP.
+2. Upload the CONTENTS (not the outer folder) to your GitHub repository root. index.html must be at repository root.
+3. Commit changes.
+4. If Netlify is connected to this repo, wait for a successful deploy. If deploying manually, upload the folder whose root contains index.html.
+
+B) SUPABASE DATABASE
+1. Open Supabase project SQL Editor.
+2. If the tables already exist, don't rerun schema blindly. Otherwise run supabase/schema.sql.
+3. Authentication > Providers: enable Anonymous Sign-Ins for user form/chat.
+
+C) EDGE FUNCTION
+1. In Supabase Edge Functions create/deploy function named exactly admin-chat-reply using supabase/functions/admin-chat-reply/index.ts.
+2. Add secrets in Supabase only:
+   ADMIN_PIN = 0607
+   OFFICEZONE_SERVICE_ROLE_KEY = your project's service_role/secret key
+   SUPABASE_URL = https://lzulwmzubghunomxgpzb.supabase.co (if not auto-provided)
+3. NEVER put the service role key in index.html, GitHub, Netlify public files, or chat.
+
+D) LIVE TEST
+1. Open the deployed site in a private/incognito tab and submit a test form.
+2. Log in as Admin with PIN 0607, open Settings, then Pending Approval.
+3. Press REFRESH SUBMISSIONS. Approve/reject the test entry.
+4. Confirm status changes after refreshing the page.
+5. If it fails, record the exact error shown. Do not share service-role keys.
+
+NOTE: The 4-digit PIN is weak and endpoint has no built-in rate limiting. For production use, switch to Supabase Auth/admin allowlisting and add rate limiting before using sensitive real data.
